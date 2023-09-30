@@ -23,7 +23,7 @@ const Friend  = ({friendId,name,subtitle,userPicturePath})=>{
     const isFriend = friends ?  friends.find((friend)=>friend._id===friendId) : false;
     const patchFriend   =  async()=>{
     const response =  await fetch(
-            `https://sociobackendout.onrender.com/users/${_id}/${friendId}`,
+        `${process.env.REACT_APP_BACKEND}users/${_id}/${friendId}`,
             {
                 method : "PATCH",
                 headers : {Authorization : `Bearer ${token}`,
@@ -38,8 +38,8 @@ const Friend  = ({friendId,name,subtitle,userPicturePath})=>{
 
 
     };
-    
     return (
+
         <FlexBetween>
         <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />

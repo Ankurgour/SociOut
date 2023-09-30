@@ -15,7 +15,7 @@ const FriendListWidget = ({ userId }) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `https://sociobackendout.onrender.com/users/${userId}/friends`,
+      `${process.env.REACT_APP_BACKEND}users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -28,7 +28,6 @@ const FriendListWidget = ({ userId }) => {
   useEffect(() => {
     getFriends();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <WidgetWrapper>
       <Typography
@@ -40,15 +39,23 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friends.map((friend) => (
+        {friends.map((friend) => 
+        
+        {
+
+        return(
+
+          
           <Friend
             key={friend._id}
             friendId={friend._id}
             name={`${friend.firstName} ${friend.lastName}`}
             subtitle={friend.occupation}
-            userPicturePath={friend.picturePath}
+            userPicturePath={friend?.picturePath[0] ?  friend?.picturePath[0]?.profile_img: []}
           />
-        ))}
+        
+        )
+        })}
       </Box>
     </WidgetWrapper>
   );

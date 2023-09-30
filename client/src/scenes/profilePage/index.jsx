@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
-    const response = await fetch(`https://sociobackendout.onrender.com/users/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

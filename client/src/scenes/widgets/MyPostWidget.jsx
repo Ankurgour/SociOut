@@ -46,7 +46,7 @@ const MyPostWidget = ({ picturePath }) => {
       formdata.append("picture", image);
       formdata.append("picturePath", image.name);
     }
-    const response = await fetch("https://sociobackendout.onrender.com/posts", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}posts`, {
       method: "POST",
       headers: { Authorization: "Bearer " + token },
       body: formdata,
@@ -60,7 +60,7 @@ const MyPostWidget = ({ picturePath }) => {
   return (
     <WidgetWrapper>
       <FlexBetween gap="1.5rem">
-        <UserImage image={picturePath} />
+        <UserImage image={picturePath[0] ? picturePath[0]?.profile_img : []} />
         <InputBase
           placeholder="Let's update on a feed.."
           onChange={(e) => setPost(e.target.value)}

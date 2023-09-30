@@ -27,7 +27,7 @@ const UserWidget = ({userId,picturePath})=>{
 
     
     const getUser = async()=>{
-        const response  = await fetch (`https://sociobackendout.onrender.com/users/${userId}` ,
+        const response  = await fetch (`${process.env.REACT_APP_BACKEND}users/${userId}` ,
         {
             method : 'GET',
             headers : {Authorization: 'Bearer ' + token},
@@ -67,7 +67,8 @@ const UserWidget = ({userId,picturePath})=>{
             onClick={()=>navigate("/profile/"+userId)}
             >
             <FlexBetween gap="1rem">
-            <UserImage image={picturePath}/>
+            {/* <UserImage image={picturePath}/> */}
+            <UserImage image = {user?.picturePath[0]?.profile_img} />
             <Box>
                 <Typography variant="h4" color={dark} fontWeight="500" sx={{
                     "&: hover" : {

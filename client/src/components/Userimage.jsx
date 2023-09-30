@@ -9,7 +9,8 @@ const UserImage = ({image,size = "60px"})=>{
         width={size}
         height={size}
         alt="user"
-        src={`https://sociobackendout.onrender.com/assets/${image}`}
+        // src={`${process.env.REACT_APP_BACKEND}assets/${image}`}
+        src={image}
         />  
 
 

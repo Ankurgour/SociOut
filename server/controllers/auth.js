@@ -1,31 +1,38 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import cloudinary from 'cloudinary';
+ 
 
 /* REGISTER USER */
 
 export const register = async (req, res) => {
   try {
+    
     const {
       firstName,
       lastName,
       email,
       password,
-      picturePath,
       friends,
       location,
       occupation,
     } = req.body;
-
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
+    const result = await cloudinary.uploader.upload(req.file.path);
+      const photo = {
+        profile_img: result.secure_url,
+        cloudinary_id: result.public_id,
+      }
+    
 
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: passwordHash,
-      picturePath,
+      picturePath :photo,
       friends,
       location,
       occupation,
@@ -43,7 +50,6 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email , password)
     const user = await User.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: "User does not exist. " });
 

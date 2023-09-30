@@ -17,6 +17,8 @@ import { verifyToken } from "./middleware/auth.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
+import cloudinary from "cloudinary"
+import cloud from "./middleware/cloudinaryConfig.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -34,8 +36,11 @@ app.use(cors({
 }));
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
+
+
+
 /* FILE STORAGE */
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/assets");
   },
@@ -43,16 +48,26 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage });
+export const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
-app.post("/auth/register", upload.single("picture"), register);
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+app.post("/auth/register", upload.single('picture'), register);
+app.post("/posts", verifyToken, upload.single('picture'), createPost);
+// app.post("/posts", verifyToken, createPost);
+// app.post("/auth/register", register);
+
+
 
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+
+
+
+
+
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

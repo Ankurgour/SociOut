@@ -24,7 +24,9 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
-}) => {
+}) => 
+
+{
   
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`https://sociobackendout.onrender.com/posts/${postId}/like`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
@@ -62,14 +64,13 @@ const PostWidget = ({
     e.preventDefault();
 
   };
-
   return (
     <WidgetWrapper margin="2rem 0">
       <Friend
         friendId={postUserId}
         name={name}
         subtitle={location}
-        userPicturePath={userPicturePath}
+        userPicturePath={userPicturePath[0] ? userPicturePath[0] :[]}
         
       />
       <Typography color={main} sx={{ mt: "1rem" }}>
@@ -81,7 +82,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://sociobackendout.onrender.com/assets/${picturePath}`}
+          src={`${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

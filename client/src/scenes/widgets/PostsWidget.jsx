@@ -9,7 +9,7 @@ const PostsWidget = ({userId, isProfile = false})=>{
     const token =  useSelector(state=>state.token);
 
     const getPosts = async()=>{
-        const response  =  await fetch('https://sociobackendout.onrender.com/posts',{
+        const response  =  await fetch(`${process.env.REACT_APP_BACKEND}posts`,{
             method  : 'GET',
             headers : { Authorization : 'Bearer ' + token   },
         })
@@ -21,7 +21,7 @@ const PostsWidget = ({userId, isProfile = false})=>{
 
     }
     const getUserPosts = async()=>{
-        const response  =  await fetch(`https://sociobackendout.onrender.com/posts/${userId}/posts`,{
+        const response  =  await fetch(`${process.env.REACT_APP_BACKEND}posts/${userId}/posts`,{
             method  : 'GET',
             headers : { Authorization : 'Bearer ' + token   },
         })
@@ -56,7 +56,6 @@ const PostsWidget = ({userId, isProfile = false})=>{
                     likes,
                     comments
                 })=>{
-                    
                     return(
                     <PostWidget
                     key = {_id} 
@@ -65,7 +64,7 @@ const PostsWidget = ({userId, isProfile = false})=>{
                     name={`${firstName} ${lastName}`}
                     description={description}
                     location={location}
-                    picturePath={picturePath}
+                    picturePath={picturePath[0] ? picturePath[0]:[]}
                     userPicturePath={userPicturePath}
                     likes={likes}
                     comments= {comments}

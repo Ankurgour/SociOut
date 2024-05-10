@@ -52,7 +52,7 @@ const FriendListWidget = ({ userId }) => {
             name={`${friend.firstName} ${friend.lastName}`}
             subtitle={friend.occupation}
 {/*             userPicturePath={friend?.picturePath[0] ?  friend?.picturePath[0]?.profile_img: []} */}
-          />
+{/*           /> */}
         
         )
         })}

@@ -42,7 +42,7 @@ const FriendListWidget = ({ userId }) => {
         {friends.map((friend) => 
         
         {
-
+          {/* console.log(friend) */}
         return(
 
           
@@ -51,8 +51,8 @@ const FriendListWidget = ({ userId }) => {
             friendId={friend._id}
             name={`${friend.firstName} ${friend.lastName}`}
             subtitle={friend.occupation}
-{/*             userPicturePath={friend?.picturePath[0] ?  friend?.picturePath[0]?.profile_img: []} */}
-{/*           /> */}
+            userPicturePath={friend?.picturePath[0] ?  friend?.picturePath[0]?.profile_img: []}
+          />
         
         )
         })}
